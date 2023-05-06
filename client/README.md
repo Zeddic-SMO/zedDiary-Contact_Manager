@@ -1,0 +1,11 @@
+- Material UI Icons
+
+- Validation - JOI
+- Authentication - JWT
+- Authorization
+- Verify account
+- Change password
+- Reset Password
+- pagination
+- sorting
+- image upload
