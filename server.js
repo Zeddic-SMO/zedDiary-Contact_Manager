@@ -12,7 +12,7 @@ app.use(morgan("dev"));
 // routes
 app.use("/api/v1", authRoutes, contactRoute);
 
-console.log(__dirname, "process.env.NODE_ENV");
+// console.log(__dirname, "process.env.NODE_ENV");
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(__dirname, "/client/build"));
 

@@ -1,4 +1,5 @@
-import { AccountBox, ManageAccounts } from "@mui/icons-material";
+import { AiFillFileAdd } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import Modal from "../../components/modal/Modal";
 import { useState } from "react";
@@ -15,7 +16,7 @@ const Home = () => {
           onClick={() => setNewContact(true)}
         >
           <span>
-            <AccountBox />
+            <AiFillFileAdd />
           </span>
           <span>Add </span>
         </div>
@@ -24,7 +25,7 @@ const Home = () => {
           <Link to="/profile">
             <div className="flex items-center border-[1px] p-1">
               <span>
-                <ManageAccounts />
+                <CgProfile />
               </span>
               <span>My Profile </span>
             </div>

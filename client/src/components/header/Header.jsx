@@ -1,5 +1,5 @@
-import { MenuBook } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { BsFillJournalBookmarkFill } from "react-icons/bs";
 
 const Header = () => {
   return (
@@ -7,7 +7,7 @@ const Header = () => {
       {/* logo - TopLeft section on desktop */}
       <div className="flex items-center gap-2 border-[1px] p-2 rounded-md shadow-lg shadow-slate-400 mb-4 md:mb-0">
         <Link to="/">
-          <MenuBook />
+          <BsFillJournalBookmarkFill />
         </Link>
         <Link to="/">
           <span>ZedDiary</span>

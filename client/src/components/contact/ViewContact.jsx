@@ -1,4 +1,4 @@
-import { Delete } from "@mui/icons-material";
+import { MdDeleteForever } from "react-icons/md";
 import React, { useState } from "react";
 
 const ViewContact = () => {
@@ -57,7 +57,7 @@ const ViewContact = () => {
           className="w-[25%] p-1 outline-none bg-white text-primary-color hover:bg-slate-500 hover:text-white rounded-md cursor-pointer"
         />
         <span className="p-1 bg-white rounded-full text-red-600 cursor-pointer shadow-lg shadow-gray-600 hover:text-red-800">
-          <Delete />
+          <MdDeleteForever />
         </span>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { Close } from "@mui/icons-material";
+import { SlClose } from "react-icons/sl";
 import React from "react";
 
 const Modal = ({ children, setNewContact }) => {
@@ -8,7 +8,7 @@ const Modal = ({ children, setNewContact }) => {
         className="absolute top-4 md:top-20 right-4 md:right-20 bg-red-500 text-white rounded-full p-1 md:p-2 shadow-md shadow-gray-950"
         onClick={() => setNewContact(false)}
       >
-        <Close />
+        <SlClose />
       </span>
       {children}
     </div>
