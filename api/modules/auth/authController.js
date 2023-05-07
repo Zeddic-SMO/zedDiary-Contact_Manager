@@ -52,6 +52,7 @@ exports.SignUp = async (req, res) => {
     const { password, isVerified, ...Others } = user._doc;
     res.status(200).json({
       status: "success",
+      message: "Registration Successfull. Verify Account!",
       user: { ...Others },
     });
   } catch (err) {
@@ -97,7 +98,11 @@ exports.SignIn = async (req, res) => {
     });
 
     // successful operation response
-    res.status(200).json({ status: "success", access_token });
+    res.status(200).json({
+      status: "success",
+      message: "Welcome Back to ZedDiary",
+      access_token,
+    });
   } catch (err) {
     res.status(401).json({
       status: "fail",

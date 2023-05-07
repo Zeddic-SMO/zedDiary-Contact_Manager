@@ -1,19 +1,56 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { ContactProvider } from "../../context/Contact_Context";
+import { toast } from "react-toastify";
+import Spinner from "../spinner/Spinner";
 
 const Login = () => {
+  const { setUserAccess, loading, setLoading } = useContext(ContactProvider);
+  const [error, setError] = useState(null);
+  const [msg, setMsg] = useState(null);
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
 
   // handle input
-  const loginInputHandler = (e) =>
+  const loginInputHandler = (e) => {
+    setError(null);
     setUser({ ...user, [e.target.name]: e.target.value });
+  };
 
   // submit handle function
-  const loginSubmitHandler = () => console.log(user);
-  console.log(user);
+  const loginSubmitHandler = () => {
+    // validate input field
+    if (!email || !password) {
+      setError("All fields are required");
+      return;
+    }
+
+    // activate loader
+    setLoading(true);
+
+    // send data to backend
+    axios
+      .post("api/v1/signin", user)
+      .then(({ data }) => {
+        console.log(data);
+        setUserAccess(data.access_token);
+        toast.success(data.message);
+
+        setUser({
+          email: "",
+          password: "",
+        });
+
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setLoading(false);
+      });
+  };
 
   const { email, password } = user;
 
@@ -23,7 +60,11 @@ const Login = () => {
         <h1 className="text-center text-3xl mb-4">
           Account <span className="text-primary-color">Login</span>
         </h1>
-
+        {error && (
+          <div className="text-center border-[1px] border-red-700 text-red-600">
+            {error}
+          </div>
+        )}
         <div className="mb-2 w-full">
           <label htmlFor="email" className="py-2">
             Email:
@@ -55,12 +96,16 @@ const Login = () => {
           <Link to="/reset_password">Forgot password? Click to reset!</Link>
         </p>
         <div className="mb-2 w-full">
-          <input
-            type="button"
-            value="LOGIN"
-            onClick={loginSubmitHandler}
-            className="w-full p-2 border-[1px] border-gray-400 bg-primary-color text-white hover:bg-primary-hover-color cursor-pointer"
-          />
+          {!loading ? (
+            <input
+              type="button"
+              value="LOGIN"
+              onClick={loginSubmitHandler}
+              className="w-full p-2 border-[1px] border-gray-400 bg-primary-color text-white hover:bg-primary-hover-color cursor-pointer"
+            />
+          ) : (
+            <Spinner />
+          )}
         </div>
         <p className="text-slate-900-500 py-3 text-sm italic hover:underline">
           <Link to="/register">
