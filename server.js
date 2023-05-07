@@ -6,15 +6,19 @@ const DBConnection = require("./api/config/dBConfig");
 const authRoutes = require("./api/modules/auth/authRoutes");
 const contactRoute = require("./api/modules/contact/contactRoutes");
 const path = require("path");
+const cors = require("cors");
+
 // middlewares
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cors());
+
 // routes
 app.use("/api/v1", authRoutes, contactRoute);
 
 // console.log(__dirname, "process.env.NODE_ENV");
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(__dirname, "/client/build"));
+  app.use(express.static(path.join(__dirname, "/client/build")));
 
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
