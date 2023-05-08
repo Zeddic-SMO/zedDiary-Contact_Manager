@@ -9,6 +9,7 @@ import Spinner from "../spinner/Spinner";
 const ViewContact = () => {
   // from context api
   const {
+    userAccess,
     contact,
     userLogOut,
     loading,
@@ -35,11 +36,10 @@ const ViewContact = () => {
       setError("All fields are required");
       return;
     }
-    console.log(id);
     setLoading(true);
     const config = {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("user"),
+        Authorization: "Bearer " + userAccess.access_token,
       },
     };
 
@@ -64,23 +64,24 @@ const ViewContact = () => {
     setLoading(true);
     const config = {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("user"),
+        Authorization: "Bearer " + userAccess.access_token,
       },
     };
-    axios
-      .delete(`/api/v1/contact/${id}`, config)
-      .then(({ data }) => {
-        toast.success(data.message);
-        fetchAllContacts();
-        setContact(false);
-        setLoading(false);
-      })
-      .catch(({ response }) => {
-        toast.warning(response.data.message);
-        if (response.data.message && response.data.message.includes("jwt")) {
-          userLogOut();
-        }
-      });
+    userAccess &&
+      axios
+        .delete(`/api/v1/contact/${id}`, config)
+        .then(({ data }) => {
+          toast.success(data.message);
+          fetchAllContacts();
+          setContact(false);
+          setLoading(false);
+        })
+        .catch(({ response }) => {
+          toast.warning(response.data.message);
+          if (response.data.message && response.data.message.includes("jwt")) {
+            userLogOut();
+          }
+        });
   };
 
   const { contact_name, contact_email, contact_phone } = updateContact;

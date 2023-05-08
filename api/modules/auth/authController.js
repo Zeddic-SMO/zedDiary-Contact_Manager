@@ -163,7 +163,7 @@ exports.User = async (req, res) => {
 
     res.status(200).json({
       status: "success",
-      loginUser: { name: user.full_name, email: user.email },
+      loginUser: { id: user._id, name: user.full_name, email: user.email },
     });
   } catch (err) {
     res.status(401).json({

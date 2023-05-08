@@ -18,16 +18,32 @@ const About = () => {
             Authentication & Authorization - User authentication and
             Authorization with Json Web Token (JWT)
           </li>
-          <li>Account Verification -</li>
           <li>
-            Account Setting - User account password reset and change of password
-            with email
+            Account Verification -Using Tribearc email solutions API -
+            <i>
+              <b>
+                <a target="_blank" href="https://www.tribearc.com/">
+                  Click here to visit Tribearc platform
+                </a>
+              </b>
+            </i>
+          </li>
+          <li>Accout Seting - change of password</li>
+        </ul>
+        <div className="bg-gray-900 text-white py-2 px-4 my-2">
+          <span className="text-xl">Versio 1.1.0</span> -{" "}
+          <span>Features will include:</span>
+        </div>
+        <ul className="list-disc ml-4 md:ml-8">
+          <li>
+            Account Setting - User Password Reset/forgotten Password - coming
+            soon...
           </li>
           <li>
             Account Update - User account info update and image handling and
-            storage with Cloudinary
+            storage with Cloudinary - coming soon...
           </li>
-          <li>Pagination & Sorting -</li>
+          <li>Pagination & Sorting - coming soon...</li>
         </ul>
       </div>
     </div>

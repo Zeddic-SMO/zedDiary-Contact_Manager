@@ -23,7 +23,7 @@ const ContactContext = ({ children }) => {
         axios
           .get(`/api/v1/user/${userAccess.id}`)
           .then(({ data }) => {
-            console.log(data);
+            // console.log(data.loginUser, "SUCCCCCCCCCCCCESS");
             setUser(data.loginUser);
           })
           .catch(({ response }) => {
@@ -37,7 +37,7 @@ const ContactContext = ({ children }) => {
     };
 
     getUser();
-  }, []);
+  }, [userAccess]);
 
   // Logout a user
   const userLogOut = () => {
@@ -50,14 +50,14 @@ const ContactContext = ({ children }) => {
 
   // fetch all user's contacts
   useEffect(() => {
-    fetchAllContacts();
-  }, []);
+    userAccess && fetchAllContacts();
+  }, [userAccess]);
 
   // fetch all function
   const fetchAllContacts = () => {
     const config = {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("user"),
+        Authorization: "Bearer " + userAccess.access_token,
       },
     };
 

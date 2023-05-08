@@ -5,8 +5,14 @@ import Spinner from "../spinner/Spinner";
 import { toast } from "react-toastify";
 
 const AddContact = () => {
-  const { loading, setLoading, setOpenModal, userLogOut } =
-    useContext(ContactProvider);
+  const {
+    userAccess,
+    loading,
+    setLoading,
+    setOpenModal,
+    userLogOut,
+    fetchAllContacts,
+  } = useContext(ContactProvider);
   const [error, setError] = useState(null);
   const [contact, setContact] = useState({
     contact_name: "",
@@ -29,29 +35,31 @@ const AddContact = () => {
     // Headers section
     const config = {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("user"),
+        Authorization: "Bearer " + userAccess.access_token,
       },
     };
 
     // axios
-    axios
-      .post("/api/v1/contact", contact, config)
-      .then(({ data }) => {
-        setLoading(false);
-        toast.success(data.message);
-        setContact({
-          contact_name: "",
-          contact_email: "",
-          contact_phone: "",
+    userAccess &&
+      axios
+        .post("/api/v1/contact", contact, config)
+        .then(({ data }) => {
+          setLoading(false);
+          toast.success(data.message);
+          setContact({
+            contact_name: "",
+            contact_email: "",
+            contact_phone: "",
+          });
+          fetchAllContacts();
+          setOpenModal(false);
+        })
+        .catch(({ response }) => {
+          setLoading(false);
+          if (response.data.message && response.data.message.includes("jwt")) {
+            userLogOut();
+          }
         });
-        setOpenModal(false);
-      })
-      .catch(({ response }) => {
-        setLoading(false);
-        if (response.data.message && response.data.message.includes("jwt")) {
-          userLogOut();
-        }
-      });
   };
 
   const { contact_name, contact_email, contact_phone } = contact;

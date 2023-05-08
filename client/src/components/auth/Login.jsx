@@ -36,9 +36,10 @@ const Login = () => {
     axios
       .post("api/v1/signin", user)
       .then(({ data }) => {
-        // console.log(data);
+        // console.log(data.user.access_token);
 
         setUserAccess(data.user);
+
         localStorage.setItem("user", JSON.stringify(data.user));
 
         toast.success(data.message);
