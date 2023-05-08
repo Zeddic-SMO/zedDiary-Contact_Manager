@@ -39,7 +39,7 @@ const Login = () => {
         // console.log(data);
 
         setUserAccess(data.user);
-        localStorage.setItem("user", data.user);
+        localStorage.setItem("user", JSON.stringify(data.user));
 
         toast.success(data.message);
 

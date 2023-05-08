@@ -1,27 +1,27 @@
 import { useContext, useState } from "react";
+import { CgProfile } from "react-icons/cg";
 import { ContactProvider } from "../../context/Contact_Context";
 
 const Profile = () => {
-  const { setUserAccess } = useContext(ContactProvider);
-  const [user, setUser] = useState({
-    profile_pic: "",
-    full_name: "samuel M. O",
-    email: "abc@example.com",
+  const { user } = useContext(ContactProvider);
+  const [changePassword, setChangePassword] = useState({
     password: "",
     repeat_password: "",
   });
 
-  const { profile_pic, full_name, email, password, repeat_password } = user;
+  const passwordChangeHandler = (e) => {
+    setChangePassword({ ...changePassword, [e.target.name]: e.target.value });
+  };
+
+  const { password, repeat_password } = changePassword;
+  const { full_name, email } = user;
+
   return (
     <div className="flex py-10 items-center justify-center md:my-20 gap-5 ">
       <div className="border-[1px] p-4 shadow-sm shadow-slate-500">
         <div className="flex justify-center items-center">
           <span className="bg-primary-color rounded-full p-[1px] flex justify-center items-center shadow-sm shadow-gray-500">
-            <img
-              src="https://images.pexels.com/photos/3912478/pexels-photo-3912478.jpeg?auto=compress&cs=tinysrgb&w=600"
-              alt="profile"
-              className="rounded-full w-[200px] h-[200px] object-fill bottom-[50px]"
-            />
+            <CgProfile size="50px" />
           </span>
         </div>
         <div className="bg-primary-color min-w-[300px] md:w-[450px] border-[1px] border-primary-color p-4 md:p-8 rounded-md">
@@ -32,13 +32,12 @@ const Profile = () => {
             >
               Full Name
             </label>
-            <input
-              type="text"
+            <span
               id="full_name"
-              name="full_name"
-              value={full_name}
-              className="w-full p-1 border-b-[1px] border-primary-color outline-none text-xl text-primary-color rounded-sm bg-gray-100"
-            />
+              className="w-full p-1 border-b-[1px] border-primary-color  text-xl text-primary-color rounded-sm bg-gray-100"
+            >
+              {full_name}
+            </span>
           </div>
 
           {/* email */}
@@ -49,13 +48,12 @@ const Profile = () => {
             >
               Email
             </label>
-            <input
-              type="text"
+            <span
               id="email"
-              name="email"
-              value={email}
               className="w-full p-1 border-b-[1px] border-primary-color outline-none text-xl text-primary-color rounded-sm bg-gray-100"
-            />
+            >
+              {email}
+            </span>
           </div>
         </div>
 
@@ -71,6 +69,7 @@ const Profile = () => {
               type="text"
               id="password"
               name="password"
+              onChange={passwordChangeHandler}
               value={password}
               className="w-full p-1 border-b-[1px] border-primary-color outline-none text-xl text-primary-color rounded-sm bg-gray-100"
             />
@@ -88,6 +87,7 @@ const Profile = () => {
               type="text"
               id="repeat_password"
               name="repeat_password"
+              onChange={passwordChangeHandler}
               value={repeat_password}
               className="w-full p-1 border-b-[1px] border-primary-color outline-none text-xl text-primary-color rounded-sm bg-gray-100"
             />

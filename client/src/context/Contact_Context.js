@@ -5,6 +5,7 @@ export const ContactProvider = createContext();
 
 const ContactContext = ({ children }) => {
   const [userAccess, setUserAccess] = useState(null);
+  const [user, setUser] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [contacts, setContacts] = useState([]);
@@ -12,7 +13,30 @@ const ContactContext = ({ children }) => {
 
   // Enable user access
   useEffect(() => {
-    setUserAccess(localStorage.getItem("user"));
+    setUserAccess(JSON.parse(localStorage.getItem("user")));
+  }, []);
+
+  // Get user information
+  useEffect(() => {
+    const getUser = () => {
+      userAccess &&
+        axios
+          .get(`/api/v1/user/${userAccess.id}`)
+          .then(({ data }) => {
+            console.log(data);
+            setUser(data.loginUser);
+          })
+          .catch(({ response }) => {
+            if (
+              response.data.message &&
+              response.data.message.includes("jwt")
+            ) {
+              userLogOut();
+            }
+          });
+    };
+
+    getUser();
   }, []);
 
   // Logout a user
@@ -76,6 +100,7 @@ const ContactContext = ({ children }) => {
     fetchSingleContact,
     setContact,
     contact,
+    user,
   };
 
   return (

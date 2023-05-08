@@ -159,7 +159,7 @@ exports.VerifyMe = async (req, res) => {
  */
 exports.User = async (req, res) => {
   try {
-    const user = await repository.isUser(req.body);
+    const user = await repository.isUser(req.params);
 
     res.status(200).json({
       status: "success",
