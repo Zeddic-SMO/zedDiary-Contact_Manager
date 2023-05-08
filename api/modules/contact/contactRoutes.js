@@ -9,7 +9,7 @@ const {
 
 contactRoute.post("/contact", isLoginUser, NewContact);
 contactRoute.get("/contact", isLoginUser, UserContacts);
-contactRoute.post("/contact/:id", isLoginUser, UpdateContact);
+contactRoute.put("/contact/:id", isLoginUser, UpdateContact);
 contactRoute.delete("/contact/:id", isLoginUser, DeleteContact);
 
 module.exports = contactRoute;

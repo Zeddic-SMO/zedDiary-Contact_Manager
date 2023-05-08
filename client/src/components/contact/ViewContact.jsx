@@ -8,7 +8,7 @@ import Spinner from "../spinner/Spinner";
 
 const ViewContact = () => {
   // from context api
-  const { contact, userLogOut, loading, setLoading } =
+  const { contact, userLogOut, loading, setLoading, fetchAllContacts } =
     useContext(ContactProvider);
 
   const [error, setError] = useState(null);
@@ -42,8 +42,10 @@ const ViewContact = () => {
         console.log(data);
         toast.success(data.message);
         setLoading(false);
+        fetchAllContacts();
       })
       .catch(({ response }) => {
+        console.log(response);
         if (response.data.message) {
           userLogOut();
         }

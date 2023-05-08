@@ -26,28 +26,30 @@ const ContactContext = ({ children }) => {
 
   // fetch all user's contacts
   useEffect(() => {
+    fetchAllContacts();
+  }, []);
+
+  // fetch all function
+  const fetchAllContacts = () => {
     const config = {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("user"),
       },
     };
 
-    const fetchAllContacts = () => {
-      axios
-        .get("/api/v1/contact", config)
-        .then(({ data }) => {
-          const allContacts = [...data.contacts];
-          setContacts(allContacts);
-          // console.log(data.contacts);
-        })
-        .catch(({ response }) => {
-          if (response.data.message) {
-            userLogOut();
-          }
-        });
-    };
-    fetchAllContacts();
-  }, []);
+    axios
+      .get("/api/v1/contact", config)
+      .then(({ data }) => {
+        const allContacts = [...data.contacts];
+        setContacts(allContacts);
+        // console.log(data.contacts);
+      })
+      .catch(({ response }) => {
+        if (response.data.message) {
+          userLogOut();
+        }
+      });
+  };
 
   // Fetch a single task
   const fetchSingleContact = (id) => {
@@ -69,9 +71,10 @@ const ContactContext = ({ children }) => {
     setOpenModal,
     loading,
     setLoading,
+    fetchAllContacts,
     contacts,
-    contact,
     fetchSingleContact,
+    contact,
   };
 
   return (
