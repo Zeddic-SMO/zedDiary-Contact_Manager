@@ -45,7 +45,7 @@ const ContactContext = ({ children }) => {
         // console.log(data.contacts);
       })
       .catch(({ response }) => {
-        if (response.data.message) {
+        if (response.data.message && response.data.message.includes("jwt")) {
           userLogOut();
         }
       });
@@ -74,6 +74,7 @@ const ContactContext = ({ children }) => {
     fetchAllContacts,
     contacts,
     fetchSingleContact,
+    setContact,
     contact,
   };
 

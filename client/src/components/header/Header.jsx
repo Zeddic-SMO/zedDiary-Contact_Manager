@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { ContactProvider } from "../../context/Contact_Context";
 
 const Header = () => {
-  const { userAccess } = useContext(ContactProvider);
+  const { userAccess, userLogOut } = useContext(ContactProvider);
   return (
     <div className="bg-primary-color text-white md:h-[50px] flex flex-col md:flex-row md:justify-between items-center py-5 md:py-8 md:px-14 gap-5 text-[14px] md:text-[16px]">
       {/* logo - TopLeft section on desktop */}
@@ -49,7 +49,10 @@ const Header = () => {
           </Link>
         ) : (
           <Link>
-            <span className="border-[1px] bg-red-800 hover:bg-red-500 p-2">
+            <span
+              className="border-[1px] bg-red-800 hover:bg-red-500 p-2"
+              onClick={userLogOut}
+            >
               Log Out
             </span>
           </Link>

@@ -48,7 +48,7 @@ const AddContact = () => {
       })
       .catch(({ response }) => {
         setLoading(false);
-        if (response.data.message) {
+        if (response.data.message && response.data.message.includes("jwt")) {
           userLogOut();
         }
       });

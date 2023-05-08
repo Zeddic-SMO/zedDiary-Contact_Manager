@@ -8,8 +8,14 @@ import Spinner from "../spinner/Spinner";
 
 const ViewContact = () => {
   // from context api
-  const { contact, userLogOut, loading, setLoading, fetchAllContacts } =
-    useContext(ContactProvider);
+  const {
+    contact,
+    userLogOut,
+    loading,
+    setLoading,
+    fetchAllContacts,
+    setContact,
+  } = useContext(ContactProvider);
 
   const [error, setError] = useState(null);
 
@@ -19,6 +25,7 @@ const ViewContact = () => {
     contact_phone: contact.contact_phone,
   });
 
+  // Onchange input handler
   const contactInputHandler = (e) =>
     setUpdateContact({ ...contact, [e.target.name]: e.target.value });
 
@@ -37,19 +44,42 @@ const ViewContact = () => {
     };
 
     axios
-      .put(`/api/v1/${id}`, updateContact, config)
+      .put(`/api/v1/contact/${id}`, updateContact, config)
       .then(({ data }) => {
-        console.log(data);
+        // console.log(data);
         toast.success(data.message);
         setLoading(false);
         fetchAllContacts();
       })
       .catch(({ response }) => {
-        console.log(response);
-        if (response.data.message) {
+        if (response.data.message && response.data.message.includes("jwt")) {
           userLogOut();
         }
         setLoading(false);
+      });
+  };
+
+  // Delete handler
+  const deleteContact = (id) => {
+    setLoading(true);
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("user"),
+      },
+    };
+    axios
+      .delete(`/api/v1/contact/${id}`, config)
+      .then(({ data }) => {
+        toast.success(data.message);
+        fetchAllContacts();
+        setContact(false);
+        setLoading(false);
+      })
+      .catch(({ response }) => {
+        toast.warning(response.data.message);
+        if (response.data.message && response.data.message.includes("jwt")) {
+          userLogOut();
+        }
       });
   };
 
@@ -105,8 +135,11 @@ const ViewContact = () => {
               className="w-[25%] p-1 outline-none bg-white text-primary-color hover:bg-slate-500 hover:text-white rounded-md cursor-pointer"
             />
 
-            <span className="p-1 bg-white rounded-full text-red-600 cursor-pointer shadow-lg shadow-gray-600 hover:text-red-800">
-              <MdDeleteForever />
+            <span
+              className="p-2 bg-white rounded-full text-red-600 cursor-pointer shadow-lg shadow-gray-600 hover:text-red-800"
+              onClick={() => deleteContact(contact._id)}
+            >
+              <MdDeleteForever size="22px" />
             </span>
           </>
         ) : (

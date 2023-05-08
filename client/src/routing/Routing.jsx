@@ -6,7 +6,6 @@ import Home from "../pages/home/Home";
 import Register from "../components/auth/Register";
 import About from "../pages/about/About";
 import ResetPassword from "../components/setting/ResetPassword";
-import ChangePassword from "../components/setting/ChangePassword";
 import Profile from "../pages/profile/Profile";
 import { ContactProvider } from "../context/Contact_Context";
 
@@ -26,11 +25,6 @@ const Routing = () => {
             <ResetPassword />
           </Layout>
         }
-      />
-
-      <Route
-        path="/change_password"
-        element={<Layout>{userAccess ? <ChangePassword /> : <Login />}</Layout>}
       />
 
       <Route

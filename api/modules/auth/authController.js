@@ -101,7 +101,7 @@ exports.SignIn = async (req, res) => {
     res.status(200).json({
       status: "success",
       message: "Welcome Back to ZedDiary",
-      access_token,
+      user: { access_token, id: user._id },
     });
   } catch (err) {
     res.status(401).json({

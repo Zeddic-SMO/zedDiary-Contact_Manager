@@ -38,8 +38,8 @@ const Login = () => {
       .then(({ data }) => {
         // console.log(data);
 
-        setUserAccess(data.access_token);
-        localStorage.setItem("user", data.access_token);
+        setUserAccess(data.user);
+        localStorage.setItem("user", data.user);
 
         toast.success(data.message);
 
