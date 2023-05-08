@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Layout from "../layout/Layout";
 import { Routes, Route } from "react-router-dom";
 import Login from "../components/auth/Login";
@@ -8,17 +8,15 @@ import About from "../pages/about/About";
 import ResetPassword from "../components/setting/ResetPassword";
 import ChangePassword from "../components/setting/ChangePassword";
 import Profile from "../pages/profile/Profile";
+import { ContactProvider } from "../context/Contact_Context";
 
 const Routing = () => {
+  const { userAccess } = useContext(ContactProvider);
   return (
     <Routes>
       <Route
         path="/login"
-        element={
-          <Layout>
-            <Login />
-          </Layout>
-        }
+        element={<Layout>{!userAccess ? <Login /> : <Home />}</Layout>}
       />
 
       <Route
@@ -32,29 +30,17 @@ const Routing = () => {
 
       <Route
         path="/change_password"
-        element={
-          <Layout>
-            <ChangePassword />
-          </Layout>
-        }
+        element={<Layout>{userAccess ? <ChangePassword /> : <Login />}</Layout>}
       />
 
       <Route
         path="/register"
-        element={
-          <Layout>
-            <Register />
-          </Layout>
-        }
+        element={<Layout>{!userAccess ? <Register /> : <Home />}</Layout>}
       />
 
       <Route
         path="/"
-        element={
-          <Layout>
-            <Home />
-          </Layout>
-        }
+        element={<Layout>{userAccess ? <Home /> : <Login />}</Layout>}
       />
 
       <Route
@@ -68,11 +54,7 @@ const Routing = () => {
 
       <Route
         path="/profile"
-        element={
-          <Layout>
-            <Profile />
-          </Layout>
-        }
+        element={<Layout>{userAccess ? <Profile /> : <Login />}</Layout>}
       />
     </Routes>
   );

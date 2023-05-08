@@ -16,7 +16,7 @@ exports.NewContact = async (req, res) => {
     // check for duplicates
     let contact = await repository.isContact(validInput);
     if (contact) {
-      throw new Error("Contact Already Exists");
+      throw new Error("Email or Phone Number already exists");
     }
 
     //save records

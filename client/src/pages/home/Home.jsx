@@ -11,27 +11,6 @@ import { ContactProvider } from "../../context/Contact_Context";
 
 const Home = () => {
   const { openModal, setOpenModal } = useContext(ContactProvider);
-  useEffect(() => {
-    testAPI();
-  }, []);
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      authentication:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NTZmYzhjNjQ0MmE0YmJlNzcxMGI2ZiIsImlzVmVyaWZpZWQiOmZhbHNlLCJpYXQiOjE2ODM0MjIzNjgsImV4cCI6MTY4MzQ1ODM2OH0.HT4v6x5439oFwXNsY9Bhm-uWBpaCwUHnx1cIc_ZybVg",
-    },
-  };
-
-  const testAPI = () => {
-    axios
-      .get(`/api/v1/contact`, config)
-      .then(({ data }) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
-  };
 
   return (
     <div className="py-10 px-2 md:px-10">
@@ -41,7 +20,7 @@ const Home = () => {
           onClick={() => setOpenModal(true)}
         >
           <span>
-            <AiFillFileAdd />
+            <AiFillFileAdd size="26px" />
           </span>
           <span>Add </span>
         </div>
@@ -50,7 +29,7 @@ const Home = () => {
           <Link to="/profile">
             <div className="flex items-center border-[1px] p-1">
               <span>
-                <CgProfile />
+                <CgProfile size="26px" />
               </span>
               <span>My Profile </span>
             </div>

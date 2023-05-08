@@ -53,8 +53,8 @@ const Register = () => {
 
         navigate("/login");
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(({ response }) => {
+        setError(response.data.message);
         setLoading(false);
       });
   };
@@ -74,7 +74,7 @@ const Register = () => {
           Account <span className="text-primary-color">Register</span>
         </h1>
         {error && (
-          <div className="text-center border-[1px] border-red-700 text-red-600">
+          <div className="p-1 mb-1 text-center border-[1px] border-red-700 text-red-600">
             {error}
           </div>
         )}

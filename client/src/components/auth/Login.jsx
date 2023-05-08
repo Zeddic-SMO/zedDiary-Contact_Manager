@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ContactProvider } from "../../context/Contact_Context";
 import { toast } from "react-toastify";
@@ -9,6 +9,7 @@ const Login = () => {
   const { setUserAccess, loading, setLoading } = useContext(ContactProvider);
   const [error, setError] = useState(null);
   const [msg, setMsg] = useState(null);
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -35,8 +36,11 @@ const Login = () => {
     axios
       .post("api/v1/signin", user)
       .then(({ data }) => {
-        console.log(data);
+        // console.log(data);
+
         setUserAccess(data.access_token);
+        localStorage.setItem("user", data.access_token);
+
         toast.success(data.message);
 
         setUser({
@@ -45,9 +49,10 @@ const Login = () => {
         });
 
         setLoading(false);
+        navigate("/");
       })
-      .catch((err) => {
-        console.log(err.message);
+      .catch(({ response }) => {
+        setError(response.data.message);
         setLoading(false);
       });
   };
@@ -61,7 +66,7 @@ const Login = () => {
           Account <span className="text-primary-color">Login</span>
         </h1>
         {error && (
-          <div className="text-center border-[1px] border-red-700 text-red-600">
+          <div className="p-1 mb-1 text-center border-[1px] border-red-700 text-red-600">
             {error}
           </div>
         )}
