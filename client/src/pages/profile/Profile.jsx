@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ContactProvider } from "../../context/Contact_Context";
 
 const Profile = () => {
+  const { setUserAccess } = useContext(ContactProvider);
   const [user, setUser] = useState({
     profile_pic: "",
     full_name: "samuel M. O",

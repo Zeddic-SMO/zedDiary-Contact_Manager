@@ -151,3 +151,24 @@ exports.VerifyMe = async (req, res) => {
     });
   }
 };
+
+/*************************
+ * ***********************
+ * @Desc - Fetch the details of a single user
+ * @returns - a mongodb object
+ */
+exports.User = async (req, res) => {
+  try {
+    const user = await repository.isUser(req.body);
+
+    res.status(200).json({
+      status: "success",
+      loginUser: { name: user.full_name, email: user.email },
+    });
+  } catch (err) {
+    res.status(401).json({
+      status: "fail",
+      message: err.message,
+    });
+  }
+};

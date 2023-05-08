@@ -4,7 +4,9 @@ const { User } = require("./authSchema");
 // @Returns - User MongoDB Object if Email exists in DB
 exports.isUser = async (input) => {
   try {
-    return await User.findOne({ email: input.email });
+    return await User.findOne({
+      $or: [{ email: input.email }, { _id: input.id }],
+    });
   } catch (err) {
     throw err;
   }
