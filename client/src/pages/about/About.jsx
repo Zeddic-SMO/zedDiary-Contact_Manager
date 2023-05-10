@@ -29,7 +29,11 @@ const About = () => {
             Account Verification -Using Tribearc email solutions API -
             <i>
               <b>
-                <a target="_blank" href="https://www.tribearc.com/">
+                <a
+                  target="_blank"
+                  href="https://www.tribearc.com/"
+                  rel="noreferrer"
+                >
                   Click here to visit Tribearc platform
                 </a>
               </b>

@@ -8,7 +8,6 @@ import Spinner from "../spinner/Spinner";
 const Login = () => {
   const { setUserAccess, loading, setLoading } = useContext(ContactProvider);
   const [error, setError] = useState(null);
-  const [msg, setMsg] = useState(null);
   const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",

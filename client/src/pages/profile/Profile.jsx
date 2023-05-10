@@ -1,8 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { MdDashboardCustomize } from "react-icons/md";
 import { ContactProvider } from "../../context/Contact_Context";
 import Spinner from "../../components/spinner/Spinner";
-import axios from "axios";
 import ChangePassword from "../../components/setting/ChangePassword";
 
 const Profile = () => {
