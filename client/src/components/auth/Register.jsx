@@ -62,7 +62,7 @@ const Register = () => {
   const { full_name, email, password, repeat_password } = user;
   return (
     <div className="flex justify-center items-center py-10">
-      <div className="min-w-[300px] md:min-w-[400px] pt-8">
+      <div className="w-[300px] md:w-[400px] pt-8">
         {msg && (
           <Modal>
             <p className="bg-white text-center font-mono font-semibold shadow-md border-2 py-2">

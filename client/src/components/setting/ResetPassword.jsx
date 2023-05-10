@@ -3,7 +3,9 @@ import React, { useState } from "react";
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
 
-  const resetSubmitHandler = () => console.log(email);
+  const resetSubmitHandler = () => {
+    console.log(email);
+  };
 
   return (
     <div className="flex flex-col justify-center items-center pt-20">

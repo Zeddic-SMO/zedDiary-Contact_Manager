@@ -157,7 +157,7 @@ exports.VerifyMe = async (req, res) => {
  * @Desc - Fetch the details of a single user
  * @returns - a mongodb object
  */
-exports.User = async (req, res) => {
+exports.GetUser = async (req, res) => {
   try {
     const user = await repository.isUser(req.params);
 
@@ -165,6 +165,43 @@ exports.User = async (req, res) => {
       status: "success",
       loginUser: { id: user._id, name: user.full_name, email: user.email },
     });
+  } catch (err) {
+    res.status(401).json({
+      status: "fail",
+      message: err.message,
+    });
+  }
+};
+
+/*************************
+ * ***********************
+ * @Desc - Update a user's record
+ * @returns - a successfull
+ */
+exports.UpdateUser = async (req, res) => {
+  try {
+    // check if user exists
+    let user = await repository.isUser(req.params);
+
+    // check if password supplied is correct
+    const passwordCheck = await passwordOperator.matchPassword(
+      req.body.old_password,
+      user.password
+    );
+    if (!passwordCheck) {
+      throw new Error("Incorrect password, you have 5 more attempts");
+    }
+    // Hash the new password
+    let hashedPassword = await passwordOperator.hasher(req.body);
+
+    //Save the password
+    const updatedUser = await repository.updateUser(req.params.id, {
+      password: hashedPassword,
+    });
+    // Successfull operation response
+    res
+      .status(200)
+      .json({ status: "success", message: "Password Changed Successfully" });
   } catch (err) {
     res.status(401).json({
       status: "fail",

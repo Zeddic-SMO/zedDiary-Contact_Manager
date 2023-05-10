@@ -2,12 +2,19 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="p-4 md:p-10">
+    <div className="p-6 md:p-10S">
       <div>
         <h1 className="text-3xl font-mono text-primary-color">
           About ZedDiary
         </h1>
-        <p className="mt-4 mb-2">This is a fullstack MERN Stack project.</p>
+        <p className="mt-4 mb-2 text-justify">
+          <b>ZedDiary</b> - is a web application that helps user to keep record
+          of their contacts and helps to manage them accordingly, User
+          Authentication with JSON web token, Data validation with JOI, CRUD
+          operations for every contact. Backend built with Node.js and
+          Express.js, Frontend with React.js, Tailwind CSS, MongoDB Atlas for
+          Cloud Database.
+        </p>
         <div className="bg-gray-900 text-white py-2 px-4 my-2">
           <span className="text-xl">Versio 1.0.0</span> -{" "}
           <span>Features of the APP include:</span>

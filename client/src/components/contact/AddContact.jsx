@@ -64,7 +64,7 @@ const AddContact = () => {
 
   const { contact_name, contact_email, contact_phone } = contact;
   return (
-    <div className="z-[999] bg-white p-2 md:p-4 min-w-[300px] md:min-w-[400px] text-gray-700">
+    <div className="z-[999] bg-white p-2 md:p-4 w-[300px] md:w-[400px] text-gray-700">
       {error && (
         <div className="p-1 mb-1 text-center border-[1px] border-red-700 text-red-600">
           {error}
