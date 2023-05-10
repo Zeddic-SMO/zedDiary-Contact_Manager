@@ -23,7 +23,7 @@ const ChangePassword = ({ user }) => {
   };
 
   const passwordChangeSubmit = (id) => {
-    console.log(id);
+    // console.log(id);
     if (!password || !old_password || !repeat_password) {
       setError("All fields are required!");
       return;
@@ -38,11 +38,17 @@ const ChangePassword = ({ user }) => {
       .put(`/api/v1/user/${id}`, { ...changePassword })
       .then(({ data }) => {
         setLoading(false);
+
+        setChangePassword({
+          old_password: "",
+          password: "",
+          repeat_password: "",
+        });
         toast.success(data.message);
       })
       .catch(({ response }) => {
         setLoading(false);
-        console.log(response.data);
+
         setError(response.data.message);
       });
   };

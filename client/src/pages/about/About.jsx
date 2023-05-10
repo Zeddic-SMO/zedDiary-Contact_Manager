@@ -35,7 +35,7 @@ const About = () => {
               </b>
             </i>
           </li>
-          <li>Accout Seting - change of password</li>
+          <li>Account Setting - Users can change their login password</li>
         </ul>
         <div className="bg-gray-900 text-white py-2 px-4 my-2">
           <span className="text-xl">Versio 1.1.0</span> -{" "}
